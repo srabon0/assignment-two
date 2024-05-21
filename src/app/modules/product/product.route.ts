@@ -9,6 +9,4 @@ router.get('/', ProductControllers.getProducts)
 
 router.get('/:productId', ProductControllers.fetchProductById)
 
-router.get('/search', ProductControllers.fetchSearchProducts)
-
 export const ProductRoutes = router
