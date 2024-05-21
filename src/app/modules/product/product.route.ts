@@ -9,4 +9,8 @@ router.get('/', ProductControllers.getProducts)
 
 router.get('/:productId', ProductControllers.fetchProductById)
 
+router.put('/:productId', ProductControllers.updateProductById)
+
+router.delete('/:productId', ProductControllers.deleteProductFromDatabase)
+
 export const ProductRoutes = router
