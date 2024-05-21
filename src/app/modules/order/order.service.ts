@@ -6,7 +6,6 @@ import Order from './order.model'
 const createOrder = async (order: IOrder): Promise<IOrder> => {
   try {
     const productId = order.productId
-    console.log(productId)
     //if product exists in the database then create order else throw error
     const findProduct: IProduct = await ProductService.getProductById(productId)
     if (!findProduct) {

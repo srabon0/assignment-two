@@ -1,15 +1,18 @@
 import IProduct from './product.interface'
 import Product from './product.model'
 
-const createProduct = async (product: IProduct) => {
+const createProduct = async (product: IProduct): Promise<IProduct> => {
   try {
     const result = await Product.create(product)
     return result
   } catch (error) {
-    return error
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    } else {
+      throw error
+    }
   }
 }
-
 const getAllProducts = async (searchTerm?: unknown) => {
   try {
     if (searchTerm) {
@@ -43,18 +46,34 @@ const getProductById = async (productId: string): Promise<IProduct> => {
       throw new Error('Product not found')
     }
   } catch (error) {
-    throw new Error(error.message)
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    } else {
+      throw error
+    }
   }
 }
 
-const updateProduct = async (productId: string, product: IProduct) => {
+const updateProduct = async (
+  productId: string,
+  product: IProduct,
+): Promise<IProduct> => {
   try {
     const result = await Product.findByIdAndUpdate(productId, product, {
       new: true,
     })
-    return result
+
+    if (result) {
+      return result as IProduct
+    } else {
+      throw new Error('Product not found')
+    }
   } catch (error) {
-    return error
+    if (error instanceof Error) {
+      throw new Error(error.message)
+    } else {
+      throw error
+    }
   }
 }
 
