@@ -8,6 +8,6 @@ const orderSchema: Schema = new Schema<IOrder>({
   quantity: { type: Number, required: true },
 })
 
-const OrderModel = model<IOrder>('Order', orderSchema)
+const Order = model<IOrder>('Order', orderSchema)
 
-export default OrderModel
+export default Order

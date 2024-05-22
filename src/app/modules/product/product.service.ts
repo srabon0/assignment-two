@@ -77,7 +77,7 @@ const updateProduct = async (
   }
 }
 
-const deleteProduct = async (productId: string) => {
+const deleteProduct = async (productId: string)  => {
   try {
     const result = await Product.findByIdAndDelete(productId)
     return result
@@ -85,7 +85,6 @@ const deleteProduct = async (productId: string) => {
     return error
   }
 }
-
 const updateProductAfterPlacedOrder = async (
   productId: string,
   quantity: number,

@@ -35,12 +35,19 @@ const getAllOrders = async (email?: unknown) => {
   try {
     if (email) {
       const result = await Order.find({ email: email })
+      if (result.length === 0) {
+        throw new Error('Order not found')
+      }
       return result
     }
     const result = await Order.find({})
     return result
   } catch (error) {
-    return error
+    if (error instanceof Error) {
+      throw error
+    } else {
+      throw error
+    }
   }
 }
 

@@ -21,11 +21,12 @@ const createOrder = async (req: Request, res: Response) => {
       message: 'Order placed successfully',
     })
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      data: null,
-      message: 'Error in placing an order',
-    })
+    if (error instanceof Error) {
+      res.status(500).json({
+        success: false,
+        message: error.message || 'Error in placing an order',
+      })
+    }
   }
 }
 
@@ -34,6 +35,9 @@ const getOrders = async (req: Request, res: Response) => {
     if (req.query.email) {
       const ordereremail = req.query.email
       const result = await OrderService.getAllOrders(ordereremail)
+      if (result.length === 0) {
+        throw new Error('Order not found')
+      }
       return res.status(200).json({
         success: true,
         data: result,
@@ -47,11 +51,12 @@ const getOrders = async (req: Request, res: Response) => {
       message: 'All order fetched successfully',
     })
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      data: null,
-      message: 'Error in getting all the orders',
-    })
+    if (error instanceof Error) {
+      return res.status(500).json({
+        success: false,
+        message: error.message || 'Error in getting all the orders',
+      })
+    }
   }
 }
 
